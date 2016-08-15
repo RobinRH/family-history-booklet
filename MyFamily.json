@@ -1,0 +1,235 @@
+{"FamilyTree" : {
+    "Me" : {
+        "Name" : "",
+        "BirthDate" : "",
+        "BirthPlace" : "",
+        "DeathDate" : "",
+        "DeathPlace" : "",
+        "Description" : ""
+    },
+    "Parents" : {
+        "Father" : {
+            "Name" : "",
+            "BirthDate" : "",
+            "BirthPlace" : "",
+            "DeathDate" : "",
+            "DeathPlace" : "",
+            "Description" : ""
+        },
+        "Mother" : {
+            "Name" : "",
+            "BirthDate" : "",
+            "BirthPlace" : "",
+            "DeathDate" : "",
+            "DeathPlace" : "",
+            "Description" : ""
+        },
+        "Marriage" : {
+            "Date" : "",
+            "Place" : ""
+        },
+        "Children" : [
+                      {
+                      "Name" : "",
+                      "BirthDate" : "",
+                      "BirthPlace" : "",
+                      "DeathDate" : "",
+                      "DeathPlace" : "",
+                      "Description" : ""
+                      }
+                      ]
+    },
+    "GrandParentsFathersSide" : {
+        "Father" : {
+            "Name" : "",
+            "BirthDate" : "",
+            "BirthPlace" : "",
+            "DeathDate" : "",
+            "DeathPlace" : "",
+            "Description" : ""
+        },
+        "Mother" : {
+            "Name" : "",
+            "BirthDate" : "",
+            "BirthPlace" : "",
+            "DeathDate" : "",
+            "DeathPlace" : "",
+            "Description" : ""
+        },
+        "Marriage" : {
+            "Date" : "",
+            "Place" : ""
+        },
+        "Children" : [
+                      {
+                      "Name" : "",
+                      "BirthDate" : "",
+                      "BirthPlace" : "",
+                      "DeathDate" : "",
+                      "DeathPlace" : "",
+                      "Description" : ""
+                      }
+                      ]
+        
+    },
+    "GrandParentsMothersSide" : {
+        "Father" : {
+            "Name" : "",
+            "BirthDate" : "",
+            "BirthPlace" : "",
+            "DeathDate" : "",
+            "DeathPlace" : "",
+            "Description" : ""
+        },
+        "Mother" : {
+            "Name" : "",
+            "BirthDate" : "",
+            "BirthPlace" : "",
+            "DeathDate" : "",
+            "DeathPlace" : "",
+            "Description" : ""
+        },
+        "Marriage" : {
+            "Date" : "",
+            "Place" : "Nevada"
+        },
+        "Children" : [
+                      {
+                      "Name" : "",
+                      "BirthDate" : "",
+                      "BirthPlace" : "",
+                      "DeathDate" : "",
+                      "DeathPlace" : "",
+                      "Description" : ""
+                      }
+                      ]
+    },
+    "GreatGrandParentsFatherFather" : {
+        "Father" : {
+            "Name" : "",
+            "BirthDate" : "",
+            "BirthPlace" : "",
+            "DeathDate" : "",
+            "DeathPlace" : "",
+            "Description" : ""
+        },
+        "Mother" : {
+            "Name" : "",
+            "BirthDate" : "",
+            "BirthPlace" : "",
+            "DeathDate" : "",
+            "DeathPlace" : "",
+            "Description" : ""
+        },
+        "Marriage" : {
+            "Date" : "",
+            "Place" : ""
+        },
+        "Children" : [
+                      {
+                      "Name" : "",
+                      "BirthDate" : "",
+                      "BirthPlace" : "",
+                      "DeathDate" : "",
+                      "DeathPlace" : "",
+                      "Description" : ""
+                      }
+                      ]
+    },
+    "GreatGrandParentsFatherMother" : {
+        "Father" : {
+            "Name" : "",
+            "BirthDate" : "",
+            "BirthPlace" : "",
+            "DeathDate" : "",
+            "DeathPlace" : "",
+            "Description" : ""
+        },
+        "Mother" : {
+            "Name" : "",
+            "BirthDate" : "",
+            "BirthPlace" : "",
+            "DeathDate" : "",
+            "DeathPlace" : "",
+            "Description" : ""
+        },
+        "Marriage" : {
+            "Date" : "",
+            "Place" : ""
+        },
+        "Children" : [
+                      {
+                      "Name" : "",
+                      "BirthDate" : "",
+                      "BirthPlace" : "",
+                      "DeathDate" : "",
+                      "DeathPlace" : "",
+                      "Description" : ""
+                      }
+                      ]
+    },
+    "GreatGrandParentsMotherFather" : {
+        "Father" : {
+            "Name" : "",
+            "BirthDate" : "",
+            "BirthPlace" : "",
+            "DeathDate" : "",
+            "DeathPlace" : "",
+            "Description" : ""
+        },
+        "Mother" : {
+            "Name" : "",
+            "BirthDate" : "",
+            "BirthPlace" : "",
+            "DeathDate" : "",
+            "DeathPlace" : "",
+            "Description" : ""
+        },
+        "Marriage" : {
+            "Date" : "",
+            "Place" : ""
+        },
+        "Children" : [
+                      {
+                      "Name" : "",
+                      "BirthDate" : "",
+                      "BirthPlace" : "",
+                      "DeathDate" : "",
+                      "DeathPlace" : "",
+                      "Description" : ""
+                      }
+                      ]
+    },
+    "GreatGrandParentsMotherMother" : {
+        "Father" : {
+            "Name" : "",
+            "BirthDate" : "",
+            "BirthPlace" : "",
+            "DeathDate" : "",
+            "DeathPlace" : "",
+            "Description" : ""
+        },
+        "Mother" : {
+            "Name" : "",
+            "BirthDate" : "",
+            "BirthPlace" : "",
+            "DeathDate" : "",
+            "DeathPlace" : "",
+            "Description" : ""
+        },
+        "Marriage" : {
+            "Date" : "",
+            "Place" : ""
+        },
+        "Children" : [
+                      {
+                      "Name" : "",
+                      "BirthDate" : "",
+                      "BirthPlace" : "",
+                      "DeathDate" : "",
+                      "DeathPlace" : "",
+                      "Description" : ""
+                      }
+                      ]
+    }
+}}
