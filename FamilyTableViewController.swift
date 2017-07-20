@@ -1,85 +1,73 @@
 //
-//  Family2TableViewController.swift
-//  FamilyPhone
-//
-//  Created by Robin Reynolds on 8/12/15.
-//  Copyright (c) 2015 Robin Reynolds. All rights reserved.
+//  FamilyTableViewController.swift
+//  Copyright (c) 2017 Robin Reynolds. All rights reserved.
 //
 
 import UIKit
 
 class FamilyTableViewController: UITableViewController {
     
+    var family = GlobalData.selectedFamily
     
-    @IBAction func addChild(sender: UIBarButtonItem) {
+    @IBAction func addChild(_ sender: UIBarButtonItem) {
         let newChild = Person()
-        newChild.personType = PersonType.Child
-        FamilyTree.selectedFamily.children.append(newChild)
+        newChild.personType = PersonType.child
+        family.children.append(newChild)
         self.tableView.reloadData()
     }
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem()
+        family = GlobalData.selectedFamily
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
 
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         self.tableView.reloadData()
     }
     
     // MARK: - Table view data source
 
-    override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        // #warning Potentially incomplete method implementation.
-        // Return the number of sections.
+    override func numberOfSections(in tableView: UITableView) -> Int {
         return 4
     }
 
-    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete method implementation.
-        // Return the number of rows in the section.
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         var number = 0
         switch(section) {
             case 0 : number = 1
             case 1 : number = 1
             case 2 : number = 1
-            case 3 : number = FamilyTree.selectedFamily.children.count
+            case 3 : number = GlobalData.selectedFamily.children.count
             default : number = 0
         }
         
         return number
     }
 
-    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("Person", forIndexPath: indexPath) // as! UITableViewCell
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "Person", for: indexPath) // as! UITableViewCell
 
-        let family = FamilyTree.selectedFamily
         if (indexPath.section == 0) {
-            cell.textLabel!.text = FamilyTree.selectedFamily.father.name
-            cell.detailTextLabel!.text = "\(family.father.birthDate) - \(family.father.deathDate)"
+            cell.textLabel!.text = family.father.name
+            cell.detailTextLabel!.text = family.father.lifetime()
         }
         else if (indexPath.section == 1) {
-            cell.textLabel!.text = FamilyTree.selectedFamily.mother.name
-            cell.detailTextLabel!.text = "\(family.mother.birthDate) - \(family.mother.deathDate)"
+            cell.textLabel!.text = family.mother.name
+            cell.detailTextLabel!.text = family.mother.lifetime()
         }
         else if (indexPath.section == 2) {
-            cell.textLabel!.text = FamilyTree.selectedFamily.marriage.date
+            cell.textLabel!.text = family.marriage.wedding.date
             cell.detailTextLabel!.text = ""
         }
         else if (indexPath.section == 3) {
             let child = family.children[indexPath.row]
             cell.textLabel!.text = child.name
-            cell.detailTextLabel!.text = "\(child.birthDate) - \(child.deathDate)"
+            cell.detailTextLabel!.text = child.lifetime()
         }
         
         return cell
@@ -88,7 +76,7 @@ class FamilyTableViewController: UITableViewController {
     
     
     
-    override func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         var title = ""
         switch(section) {
         case 0: title = "Father"
@@ -101,21 +89,21 @@ class FamilyTableViewController: UITableViewController {
     }
     
     
-    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
             if (indexPath.section == 0) {
-                FamilyTree.selectedPerson = FamilyTree.selectedFamily.father
-                performSegueWithIdentifier("pushToPerson", sender: self)
+                GlobalData.selectedPerson = GlobalData.selectedFamily.father
+                performSegue(withIdentifier: "pushToPerson", sender: self)
             }
             else if (indexPath.section == 1) {
-                FamilyTree.selectedPerson = FamilyTree.selectedFamily.mother
-                performSegueWithIdentifier("pushToPerson", sender: self)
+                GlobalData.selectedPerson = GlobalData.selectedFamily.mother
+                performSegue(withIdentifier: "pushToPerson", sender: self)
             }
             else if (indexPath.section == 2) {
-                performSegueWithIdentifier("pushToMarriage", sender: self)
+                performSegue(withIdentifier: "pushToMarriage", sender: self)
             }
             else if (indexPath.section == 3) {
-                FamilyTree.selectedPerson = FamilyTree.selectedFamily.children[indexPath.row]
-                performSegueWithIdentifier("pushToPerson", sender: self)
+                GlobalData.selectedPerson = GlobalData.selectedFamily.children[indexPath.row]
+                performSegue(withIdentifier: "pushToPerson", sender: self)
             }
     }
     
