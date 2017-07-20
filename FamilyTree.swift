@@ -6,12 +6,21 @@
 import Foundation
 import UIKit
 
-class FamilyColor {
-    static let me = UIColor(red: 45/255, green: 208/255, blue: 0/255, alpha: 1.0)
-    static let parents = UIColor(red: 106/255, green: 148/255, blue: 212/255, alpha: 1.0)
-    static let grandParents = UIColor(red: 255/255, green: 203/255, blue: 115/255, alpha: 1.0)
-    static let greatGrandParents = UIColor (red: 250/255, green: 112/255, blue: 128/255, alpha: 1.0)
+enum FamilyColor : Int, Codable {
+    
+    case me, parents, grandParents, greatGrandParents
+    
+    func getUIColor() -> UIColor {
+        switch (self) {
+        case .me : return UIColor(red: 45/255, green: 208/255, blue: 0/255, alpha: 1.0)
+        case .parents : return UIColor(red: 106/255, green: 148/255, blue: 212/255, alpha: 1.0)
+        case .grandParents : return UIColor(red: 255/255, green: 203/255, blue: 115/255, alpha: 1.0)
+        case .greatGrandParents : return UIColor(red: 250/255, green: 112/255, blue: 128/255, alpha: 1.0)
+        }
+    }
+    
 }
+
 
 
 //class FamilyTreeNode {
@@ -32,23 +41,15 @@ class FamilyColor {
 class FamilyTree : Codable  {
 
     var me = Person()
-    var parents = Family(name: "Parents", friendly1: "My Parents", friendly2: "")
-    var grandParentsFather = Family(name: "GrandParentsFathersSide", friendly1: "My Grandparents", friendly2: "Father's Side")
-    var grandParentsMother = Family(name: "GrandParentsMothersSide", friendly1: "My Grandparents", friendly2: "Mother's Side")
-    var greatGrandParentsFatherFather = Family(name: "GreatGrandParentsFatherFather", friendly1: "My Great-Grandparents", friendly2: "Father's Father's Side")
-    var greatGrandParentsFatherMother = Family(name: "GreatGrandParentsFatherMother", friendly1: "My Great-Grandparents", friendly2: "Father's Mothers's Side")
-    var greatGrandParentsMotherFather = Family(name: "GreatGrandParentsMotherFather", friendly1: "My Great-Grandparents", friendly2: "Mother's Father's Side")
-    var greatGrandParentsMotherMother = Family(name: "GreatGrandParentsMotherMother", friendly1: "My Great-Grandparents", friendly2: "Mother's Mother's Side")
+    var parents = Family(name: "Parents", friendly1: "My Parents", friendly2: "", color: .parents)
+    var grandParentsFather = Family(name: "GrandParentsFathersSide", friendly1: "My Grandparents", friendly2: "Father's Side", color: .grandParents)
+    var grandParentsMother = Family(name: "GrandParentsMothersSide", friendly1: "My Grandparents", friendly2: "Mother's Side", color: .grandParents)
+    var greatGrandParentsFatherFather = Family(name: "GreatGrandParentsFatherFather", friendly1: "My Great-Grandparents", friendly2: "Father's Father's Side", color: .greatGrandParents)
+    var greatGrandParentsFatherMother = Family(name: "GreatGrandParentsFatherMother", friendly1: "My Great-Grandparents", friendly2: "Father's Mothers's Side", color: .greatGrandParents)
+    var greatGrandParentsMotherFather = Family(name: "GreatGrandParentsMotherFather", friendly1: "My Great-Grandparents", friendly2: "Mother's Father's Side", color: .greatGrandParents)
+    var greatGrandParentsMotherMother = Family(name: "GreatGrandParentsMotherMother", friendly1: "My Great-Grandparents", friendly2: "Mother's Mother's Side", color: .greatGrandParents)
     
     init() {
-        me.color = FamilyColor.me
-        parents.color = FamilyColor.parents
-        grandParentsFather.color = FamilyColor.grandParents
-        grandParentsMother.color = FamilyColor.grandParents
-        greatGrandParentsFatherFather.color = FamilyColor.greatGrandParents
-        greatGrandParentsFatherMother.color = FamilyColor.greatGrandParents
-        greatGrandParentsMotherFather.color = FamilyColor.greatGrandParents
-        greatGrandParentsMotherMother.color = FamilyColor.greatGrandParents
     }
     
 }
@@ -71,6 +72,16 @@ class Marriage : Codable {
     
 }
 
+//extension UIColor : Codable {
+//    public convenience init(from decoder: Decoder) throws {
+//    }
+//
+//    public func encode(to encoder: Encoder) throws {
+//
+//    }
+//
+//}
+
 
 class Family : Codable {
     var father = Person()
@@ -81,25 +92,17 @@ class Family : Codable {
     var friendlyName1 = ""
     var friendlyName2 = ""
     var colorComps : [CGFloat]? = CGColor(colorLiteralRed: 0.5, green: 0.5, blue: 0.5, alpha: 1.0).components
+    var generationColor : FamilyColor = FamilyColor.me
     
     var color : UIColor {
-        get {
-            let rc = Float(colorComps![0])
-            let gc = Float(colorComps![1])
-            let bc = Float(colorComps![2])
-            let ac = Float(colorComps![3])
-            let cc = CGColor(colorLiteralRed: rc, green: gc, blue: bc, alpha: ac)
-            return UIColor(cgColor: cc)
-        }
-        set {
-            colorComps = newValue.cgColor.components
-        }
+        return generationColor.getUIColor()
     }
-
-    init(name: String, friendly1 : String, friendly2 : String) {
+    
+    init(name: String, friendly1 : String, friendly2 : String, color : FamilyColor) {
         familyName = name
         friendlyName1 = friendly1
         friendlyName2 = friendly2
+        generationColor = color
     }
     
     init() {
