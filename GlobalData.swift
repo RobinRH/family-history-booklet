@@ -20,17 +20,19 @@ class GlobalData {
         let defaults: UserDefaults = UserDefaults.standard
         if (defaults.object(forKey: "data") == nil) {
             GlobalData.oneTree = FamilyTree()
-            let je = JSONEncoder()
-            je.outputFormatting = .prettyPrinted
-            let data = try? je.encode(GlobalData.oneTree)
-            let dataString = String(data: data!, encoding: .utf8)!
-            defaults.set(dataString as String, forKey: "data")
-            defaults.synchronize()
+            GlobalData.writeFamilyTree()
         } else {
             let dataString = defaults.object(forKey: "data") as! String
             let jd = JSONDecoder()
-            let tree = try? jd.decode(FamilyTree.self, from: dataString.data(using: .utf8)!)
-            GlobalData.oneTree = tree!
+            var tree : FamilyTree? = nil
+            
+            do {
+                try tree = jd.decode(FamilyTree.self, from: dataString.data(using: .utf8)!)
+                GlobalData.oneTree = tree!
+            } catch {
+                GlobalData.oneTree = FamilyTree()
+                GlobalData.writeFamilyTree()
+            }
         }
     }
     
