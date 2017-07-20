@@ -1,44 +1,43 @@
 //
 //  ExportViewController.swift
-//  FamilyPhone
-//
-//  Created by Robin Reynolds on 8/12/15.
-//  Copyright (c) 2015 Robin Reynolds. All rights reserved.
+//  Copyright (c) 2017 Robin Reynolds. All rights reserved.
 //
 
 import UIKit
 
 class ExportViewController: UIViewController {
 
-    // UIDocumentInteractionController instance is a class property
-    var docController:UIDocumentInteractionController!
+    var docController : UIDocumentInteractionController!
     
     @IBOutlet weak var textJson: UITextView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Do any additional setup after loading the view.
-        let data = FamilyTree.write()
-        textJson.text = data
+        // create the json string for the family tree
+        let je = JSONEncoder()
+        je.outputFormatting = .prettyPrinted
+        let data = try? je.encode(GlobalData.oneTree)
+        textJson.text = String(data: data!, encoding: .utf8)!
         
-        let fileName: NSString = "export.json"
-        let path:NSArray = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)
-        let documentDirectory: AnyObject = path.objectAtIndex(0)
-        let dataPath = documentDirectory.stringByAppendingPathComponent(fileName as String)
-        let url = NSURL(fileURLWithPath: dataPath)
+        // write the json out as a file in the document directory
+        let fileName = "export.json"
+        let paths = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)
+        let documentDirectory = paths[0] as NSString
+        let dataPath = documentDirectory.appendingPathComponent(fileName as String)
+        
+        let url = URL(fileURLWithPath: dataPath)
         do {
-            try data.writeToURL(url, atomically: true, encoding: NSUTF8StringEncoding)
+            try data!.write(to: url)
         } catch let error as NSError {
             print(error.localizedDescription)
         }
-        //        data.writeToURL(url, atomically: true, encoding: NSUTF8StringEncoding, error: nil)
-        self.docController = UIDocumentInteractionController(URL: url)
+        self.docController = UIDocumentInteractionController(url: url)
         
     }
 
-    @IBAction func openBook(sender: AnyObject) {
-        docController.presentOptionsMenuFromBarButtonItem(sender as! UIBarButtonItem, animated: true)
+    @IBAction func openBook(_ sender: AnyObject) {
+        docController.presentOptionsMenu(from: sender as! UIBarButtonItem, animated: true)
     }
     
     override func didReceiveMemoryWarning() {
@@ -46,15 +45,4 @@ class ExportViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }
