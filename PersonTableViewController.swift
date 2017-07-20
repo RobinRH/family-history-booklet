@@ -1,9 +1,6 @@
 //
 //  FatherTableViewController.swift
-//  FamilyPhone
-//
-//  Created by Robin Reynolds on 8/10/15.
-//  Copyright (c) 2015 Robin Reynolds. All rights reserved.
+//  Copyright (c) 2017 Robin Reynolds. All rights reserved.
 //
 
 import UIKit
@@ -23,56 +20,52 @@ class PersonTableViewController: UITableViewController, UIImagePickerControllerD
     @IBOutlet weak var photoImage: UIImageView!
     @IBOutlet weak var photoCell: UITableViewCell!
 
-    @IBAction func doneClick(sender: AnyObject) {
+    @IBAction func doneClick(_ sender: AnyObject) {
         storiesText.resignFirstResponder();
     }
-    
     
     
     @IBOutlet weak var descriptionLabel: UILabel!
     let imagePicker = UIImagePickerController()
     
-    @IBAction func selectPhoto(sender: AnyObject) {
+    
+    
+    @IBAction func selectPhoto(_ sender: AnyObject) {
         imagePicker.allowsEditing = false
-        imagePicker.sourceType = .PhotoLibrary
-        presentViewController(imagePicker, animated: true, completion: nil)
+        imagePicker.sourceType = .photoLibrary
+        present(imagePicker, animated: true, completion: nil)
     }
     
 
-//    func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [NSObject : AnyObject]) {
-    func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : AnyObject]) {
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
         if let pickedImage = info[UIImagePickerControllerOriginalImage] as? UIImage {
-            //photoImage.contentMode = .ScaleAspectFit
             photoImage!.image = pickedImage
-            FamilyTree.selectedPerson.image = pickedImage
+            GlobalData.selectedPerson.image = pickedImage
         }
         
-        dismissViewControllerAnimated(true, completion: nil)
+        dismiss(animated: true, completion: nil)
     }
     
-    func textFieldShouldReturn(textField: UITextField) -> Bool {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         self.view.endEditing(true)
         return false
     }
     
     
-    func imagePickerControllerDidCancel(picker: UIImagePickerController) {
-        dismissViewControllerAnimated(true, completion: nil)
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        dismiss(animated: true, completion: nil)
     }
     
     func configureView() {
-        let person = FamilyTree.selectedPerson
+        let person = GlobalData.selectedPerson
         nameText!.text = person.name
-        birthDateText!.text = person.birthDate
-        birthPlaceText!.text = person.birthPlace
-        deathDateText!.text = person.deathDate
-        deathPlaceText!.text = person.deathPlace
-//        templeWorkSwitch!.on = person.templeWork
-//        familySearchSwitch!.on = person.familySearch
+        birthDateText!.text = person.birth.date
+        birthPlaceText!.text = person.birth.place
+        deathDateText!.text = person.death.date
+        deathPlaceText!.text = person.death.place
         photoImage!.image = person.image
         storiesText!.text = person.description
     }
-
 
 
     override func viewDidLoad() {
@@ -86,56 +79,50 @@ class PersonTableViewController: UITableViewController, UIImagePickerControllerD
         deathDateText.delegate = self
         deathPlaceText.delegate = self
         
-        storiesText.layer.borderColor = UIColor.lightGrayColor().CGColor
+        storiesText.layer.borderColor = UIColor.lightGray.cgColor
         storiesText.layer.borderWidth = 0.5
         storiesText.layer.cornerRadius = 5
         // this part to set the width doesn't seem to work
         let width = storiesText.superview?.frame.width
         storiesText.frame.size = CGSize(width: width! - 16, height: storiesText.frame.size.height)
-        
-        switch (FamilyTree.selectedPerson.personType) {
-        case PersonType.Me: self.navigationItem.title = "Me"
-        case PersonType.Father: self.navigationItem.title = "Father"
-        case PersonType.Mother: self.navigationItem.title = "Mother"
-        case PersonType.Child: self.navigationItem.title = "Child"
-        }
-        
+
+        self.navigationItem.title = GlobalData.selectedPerson.personType.toString()
+
         self.tableView.beginUpdates()
         self.tableView.endUpdates()
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
     
-    override func viewWillAppear(animated: Bool) {
-        photoImage.contentMode = .ScaleAspectFit
-        photoImage.image = FamilyTree.selectedPerson.image
+    override func viewWillAppear(_ animated: Bool) {
+        photoImage.contentMode = .scaleAspectFit
+        photoImage.image = GlobalData.selectedPerson.image
     }
     
     
-    override func viewWillDisappear(animated: Bool) {
+    override func viewWillDisappear(_ animated: Bool) {
         // save the values back to the model
-        let person = FamilyTree.selectedPerson
+        let person = GlobalData.selectedPerson
         person.name = nameText!.text!
-        person.birthDate = birthDateText!.text!
-        person.birthPlace = birthPlaceText!.text!
-        person.deathDate = deathDateText!.text!
-        person.deathPlace = deathPlaceText!.text!
-        person.image = photoImage!.image
+        person.birth.date = birthDateText!.text!
+        person.birth.place = birthPlaceText!.text!
+        person.death.date = deathDateText!.text!
+        person.death.place = deathPlaceText!.text!
+        //person.image = photoImage!.image!
         person.description = storiesText!.text!
     }
 
-    override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-        if (indexPath.section == 0 && indexPath.row == 1 && FamilyTree.selectedPerson.personType == PersonType.Child) {
+    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        if (indexPath.section == 0 && indexPath.row == 1 && GlobalData.selectedPerson.personType == PersonType.child) {
             return 0
         }
-        else if (indexPath.section == 3 && indexPath.row == 2 && FamilyTree.selectedPerson.personType == PersonType.Child) {
+        else if (indexPath.section == 3 && indexPath.row == 2 && GlobalData.selectedPerson.personType == PersonType.child) {
             return 0
         }
         else {
-            return super.tableView(self.tableView, heightForRowAtIndexPath: indexPath)
+            return super.tableView(self.tableView, heightForRowAt: indexPath)
         }
     }
 
