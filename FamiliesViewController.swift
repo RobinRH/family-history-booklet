@@ -1,9 +1,6 @@
 //
-//  MasterViewController.swift
-//  FamilyPhone
-//
-//  Created by Robin Reynolds on 6/27/15.
-//  Copyright (c) 2015 Robin Reynolds. All rights reserved.
+//  FamiliesViewController.swift
+//  Copyright (c) 2017 Robin Reynolds. All rights reserved.
 //
 
 import UIKit
@@ -16,10 +13,9 @@ class FamiliesViewController: UITableViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        //FamilyTree.loadFamilies()
     }
 
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         self.tableView.reloadData()
     }
     
@@ -30,76 +26,63 @@ class FamiliesViewController: UITableViewController {
 
     // MARK: - Segues
 
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-            if let indexPath = self.tableView.indexPathForSelectedRow {
-                switch (indexPath.row) {
-                case 0: FamilyTree.selectedPerson = FamilyTree.me
-                case 1: FamilyTree.selectedFamily = FamilyTree.parents
-                case 2: FamilyTree.selectedFamily = FamilyTree.grandParentsFather
-                case 3: FamilyTree.selectedFamily = FamilyTree.grandParentsMother
-                case 4: FamilyTree.selectedFamily = FamilyTree.greatGrandParentsFatherFather
-                case 5: FamilyTree.selectedFamily = FamilyTree.greatGrandParentsFatherMother
-                case 6: FamilyTree.selectedFamily = FamilyTree.greatGrandParentsMotherFather
-                case 7: FamilyTree.selectedFamily = FamilyTree.greatGrandParentsMotherMother
-                default : FamilyTree.selectedFamily = Family()
-                }
+    // this function is called when one of the rows in the families table is clicked
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if let indexPath = self.tableView.indexPathForSelectedRow {
+            switch (indexPath.row) {
+            case 0: GlobalData.selectedPerson = GlobalData.oneTree.me
+            case 1: GlobalData.selectedFamily = GlobalData.oneTree.parents
+            case 2: GlobalData.selectedFamily = GlobalData.oneTree.grandParentsFather
+            case 3: GlobalData.selectedFamily = GlobalData.oneTree.grandParentsMother
+            case 4: GlobalData.selectedFamily = GlobalData.oneTree.greatGrandParentsFatherFather
+            case 5: GlobalData.selectedFamily = GlobalData.oneTree.greatGrandParentsFatherMother
+            case 6: GlobalData.selectedFamily = GlobalData.oneTree.greatGrandParentsMotherFather
+            case 7: GlobalData.selectedFamily = GlobalData.oneTree.greatGrandParentsMotherMother
+            default : GlobalData.selectedFamily = Family()
             }
+        }
     }
 
     // MARK: - Table View
-
-//    override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-//        return 1
-//    }
-//
-//    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-//        //return objects.count
-//        return 4
-//    }
-//
-//    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-//        let cell = tableView.dequeueReusableCellWithIdentifier("FamiliesCell", forIndexPath: indexPath) as! UITableViewCell
-//
-//        cell.textLabel!.text = list[indexPath.row][0]
-//        cell.detailTextLabel!.text = list[indexPath.row][1]
-//        return cell
-//    }
     
-    override func tableView(tableView: UITableView, willDisplayCell cell: UITableViewCell, forRowAtIndexPath indexPath: NSIndexPath) {
+    // this function creates the string of mother and father names in the second line of
+    // text in each row in the families table
+    // for example, "John Smith & Susan Harris"
+    override func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         
         let names : UILabel = cell.detailTextLabel!
         
         switch (indexPath.row) {
         case 0:
-            names.text = FamilyTree.me.name
+            names.text = GlobalData.oneTree.me.name
         case 1:
             names.text =
-                FamilyTree.parents.father.name + " & " +
-                FamilyTree.parents.mother.name
+                GlobalData.oneTree.parents.father.name + " & " +
+                GlobalData.oneTree.parents.mother.name
         case 2:
             names.text =
-                FamilyTree.grandParentsFather.father.name + " & " +
-                FamilyTree.grandParentsFather.mother.name
+                GlobalData.oneTree.grandParentsFather.father.name + " & " +
+                GlobalData.oneTree.grandParentsFather.mother.name
         case 3:
             names.text =
-                FamilyTree.grandParentsMother.father.name + " & "  +
-                FamilyTree.grandParentsMother.mother.name
+                GlobalData.oneTree.grandParentsMother.father.name + " & "  +
+                GlobalData.oneTree.grandParentsMother.mother.name
         case 4:
             names.text =
-                FamilyTree.greatGrandParentsFatherFather.father.name + " & "  +
-                FamilyTree.greatGrandParentsFatherFather.mother.name
+                GlobalData.oneTree.greatGrandParentsFatherFather.father.name + " & "  +
+                GlobalData.oneTree.greatGrandParentsFatherFather.mother.name
         case 5:
             names.text =
-                FamilyTree.greatGrandParentsFatherMother.father.name + " & "  +
-                FamilyTree.greatGrandParentsFatherMother.mother.name
+                GlobalData.oneTree.greatGrandParentsFatherMother.father.name + " & "  +
+                GlobalData.oneTree.greatGrandParentsFatherMother.mother.name
         case 6:
             names.text =
-                FamilyTree.greatGrandParentsMotherFather.father.name + " & "  +
-                FamilyTree.greatGrandParentsMotherFather.mother.name
+                GlobalData.oneTree.greatGrandParentsMotherFather.father.name + " & "  +
+                GlobalData.oneTree.greatGrandParentsMotherFather.mother.name
         case 7:
             names.text =
-                FamilyTree.greatGrandParentsMotherMother.father.name + " & "  +
-                FamilyTree.greatGrandParentsMotherMother.mother.name
+                GlobalData.oneTree.greatGrandParentsMotherMother.father.name + " & "  +
+                GlobalData.oneTree.greatGrandParentsMotherMother.mother.name
         case 8: 
             names.text = ""
         case 9:
@@ -108,19 +91,19 @@ class FamiliesViewController: UITableViewController {
         }
     }
 
-    override func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
+    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
         // Return false if you do not want the specified item to be editable.
-        return true
+        return false
     }
 
-    override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
+//    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
 //        if editingStyle == .Delete {
 //            objects.removeAtIndex(indexPath.row)
 //            tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
 //        } else if editingStyle == .Insert {
 //            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view.
 //        }
-    }
+//    }
 
 
 }
