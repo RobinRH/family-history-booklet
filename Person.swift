@@ -41,19 +41,10 @@ class Person : Codable {
     var personType = PersonType.father
     var colorComps : [CGFloat]? = CGColor(colorLiteralRed: 0.5, green: 0.5, blue: 0.5, alpha: 1.0).components
     var imageFile = "NoPhotoSelected.png"
-    
+    var meColor = FamilyColor.me
+        
     var color : UIColor {
-        get {
-            let rc = Float(colorComps![0])
-            let gc = Float(colorComps![1])
-            let bc = Float(colorComps![2])
-            let ac = Float(colorComps![3])
-            let cc = CGColor(colorLiteralRed: rc, green: gc, blue: bc, alpha: ac)
-            return UIColor(cgColor: cc)
-        }
-        set {
-            colorComps = newValue.cgColor.components
-        }
+        return meColor.getUIColor()
     }
     
     var image : UIImage {
