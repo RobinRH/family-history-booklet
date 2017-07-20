@@ -1,9 +1,6 @@
 //
 //  FamilyTreeViewController.swift
-//  FamilyPhone
-//
-//  Created by Robin Reynolds on 6/28/15.
-//  Copyright (c) 2015 Robin Reynolds. All rights reserved.
+//  Copyright (c) 2017 Robin Reynolds. All rights reserved.
 //
 
 import UIKit
@@ -31,42 +28,28 @@ class FamilyTreeViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
         
-        meLabel!.text = FamilyTree.me.name
-        fatherLabel!.text = FamilyTree.parents.father.name
-        motherLabel!.text = FamilyTree.parents.mother.name
-        gp1!.text = FamilyTree.grandParentsFather.father.name
-        gp2!.text = FamilyTree.grandParentsFather.mother.name
-        gp3!.text = FamilyTree.grandParentsMother.father.name
-        gp4!.text = FamilyTree.grandParentsMother.mother.name
+        meLabel!.text = GlobalData.oneTree.me.name
+        fatherLabel!.text = GlobalData.oneTree.parents.father.name
+        motherLabel!.text = GlobalData.oneTree.parents.mother.name
+        gp1!.text = GlobalData.oneTree.grandParentsFather.father.name
+        gp2!.text = GlobalData.oneTree.grandParentsFather.mother.name
+        gp3!.text = GlobalData.oneTree.grandParentsMother.father.name
+        gp4!.text = GlobalData.oneTree.grandParentsMother.mother.name
         
-        ggp1!.text = FamilyTree.greatGrandParentsFatherFather.father.name
-        ggp2!.text = FamilyTree.greatGrandParentsFatherFather.mother.name
-        ggp3!.text = FamilyTree.greatGrandParentsFatherMother.father.name
-        ggp4!.text = FamilyTree.greatGrandParentsFatherMother.mother.name
-        ggp5!.text = FamilyTree.greatGrandParentsMotherFather.father.name
-        ggp6!.text = FamilyTree.greatGrandParentsMotherFather.mother.name
-        ggp7!.text = FamilyTree.greatGrandParentsMotherMother.father.name
-        ggp8!.text = FamilyTree.greatGrandParentsMotherMother.mother.name
+        ggp1!.text = GlobalData.oneTree.greatGrandParentsFatherFather.father.name
+        ggp2!.text = GlobalData.oneTree.greatGrandParentsFatherFather.mother.name
+        ggp3!.text = GlobalData.oneTree.greatGrandParentsFatherMother.father.name
+        ggp4!.text = GlobalData.oneTree.greatGrandParentsFatherMother.mother.name
+        ggp5!.text = GlobalData.oneTree.greatGrandParentsMotherFather.father.name
+        ggp6!.text = GlobalData.oneTree.greatGrandParentsMotherFather.mother.name
+        ggp7!.text = GlobalData.oneTree.greatGrandParentsMotherMother.father.name
+        ggp8!.text = GlobalData.oneTree.greatGrandParentsMotherMother.mother.name
         
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }
