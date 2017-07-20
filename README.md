@@ -5,6 +5,7 @@ Branches
 + master: 
     - This is the Swift 4 version of the code, not yet released. 
     - The NSJSONSerialization code is replaced with the Codable interface, eliminating hundreds of lines of code. 
-    - I am starting to remove the hard-coded individuals.
+    - Several classes were refactored to support the Codable interface.
+    - I am starting to remove the hard-coded individuals. 
     - The FamilyTree class no longer contains a bunch of static members. Instead there is a GlobalData object that creates and tracks the one instance of FamilyTree.
     
