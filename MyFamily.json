@@ -1,3 +1,5 @@
+The app doesn't use this format for the JSON in the swift4 version.
+
 {"FamilyTree" : {
     "Me" : {
         "Name" : "",
